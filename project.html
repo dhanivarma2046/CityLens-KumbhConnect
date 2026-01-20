@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🕉️ citylens (~KumbhaConnect)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-bounce {
+            animation: bounce 1s infinite;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #ea580c, #dc2626);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-orange-50 via-yellow-50 to-red-50 min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-orange-600 via-red-600 to-orange-700 text-white shadow-2xl">
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between flex-wrap gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-full backdrop-blur-sm">
+                        <span class="text-5xl">✨</span>
+                    </div>
+                    <div>
+                        <h1 class="text-4xl font-bold mb-1 flex items-center gap-2">
+                            <span id="headerTitle">🕉️ citylens (~KumbhaConnect)</span> 
+                            <span class="text-3xl">🕉️</span>
+                        </h1>
+                        <p class="text-orange-100 text-lg">✨ <span id="headerSubtitle">Divine Journey, Spiritual Experience</span> ✨</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 bg-white bg-opacity-10 backdrop-blur-sm px-4 py-2 rounded-full">
+                    <span class="text-xl">🌐</span>
+                    <select id="languageSelect" class="bg-white text-orange-600 px-4 py-2 rounded-lg font-semibold cursor-pointer shadow-lg">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="hi">🇮🇳 हिंदी</option>
+                        <option value="mr">🇮🇳 मराठी</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Banner -->
+    <div class="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 py-4">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-white text-center">
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-2xl">📍</span>
+                    <div>
+                        <div class="font-bold text-lg">6+</div>
+                        <div class="text-sm opacity-90">Sacred Sites</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-2xl">👥</span>
+                    <div>
+                        <div class="font-bold text-lg">Millions</div>
+                        <div class="text-sm opacity-90">Pilgrims</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-2xl">❤️</span>
+                    <div>
+                        <div class="font-bold text-lg">24/7</div>
+                        <div class="text-sm opacity-90">AI Support</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                    <span class="text-2xl">⭐</span>
+                    <div>
+                        <div class="font-bold text-lg">2026</div>
+                        <div class="text-sm opacity-90">Kumbh Mela</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex gap-2 overflow-x-auto py-4">
+                <button onclick="switchTab('sites')" id="tab-sites" class="flex items-center gap-2 px-6 py-3 rounded-xl transition-all whitespace-nowrap font-semibold bg-gradient-to-r from-orange-600 to-red-600 text-white shadow-xl scale-105">
+                    <span class="text-lg">🛕</span>
+                    <span id="navSites">Sacred Sites</span>
+                </button>
+              <button onclick="switchTab('assistant')" id="tab-assistant" class="flex items-center gap-2 px-6 py-3 rounded-xl transition-all whitespace-nowrap font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">
+                    <span class="text-lg">🤖</span>
+                    <span id="navAssistant">AI Assistant</span>
+                
+
+                <button onclick="switchTab('map')" id="tab-map" class="flex items-center gap-2 px-6 py-3 rounded-xl transition-all whitespace-nowrap font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">
+                    <span class="text-lg">🗺️</span>
+                    <span id="navMap">Interactive Map</span>
+                </button>
+                <button onclick="switchTab('scanner')" id="tab-scanner" class="flex items-center gap-2 px-6 py-3 rounded-xl transition-all whitespace-nowrap font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200">
+                    <span class="text-lg">📷</span>
+                    <span id="navScanner">find site</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Sacred Sites Tab -->
+        <div id="content-sites" class="tab-content">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">🕉️ <span id="sitesTitle">Sacred Sites</span> 🕉️</h2>
+                <p class="text-gray-600">Click on any site to explore more</p>
+            </div>
+            <div id="sitesGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Sites will be loaded here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- AI Assistant Tab -->
+        <div id="content-assistant" class="tab-content hidden">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border-4 border-orange-100">
+                    <div class="bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 text-white p-6">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-white bg-opacity-20 p-3 rounded-full backdrop-blur-sm">
+                                <span class="text-4xl">🤖</span>
+                            </div>
+                            <div>
+                                <h2 class="text-2xl font-bold flex items-center gap-2">
+                                    🤖 <span id="assistantTitle">AI Assistant</span>
+                                </h2>
+                                <p class="text-sm text-orange-100">24/7 Pilgrim Support • Instant Responses</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="p-6 bg-gradient-to-r from-orange-50 to-yellow-50 border-b-4 border-orange-200">
+                        <p class="text-sm text-gray-600 mb-3 font-semibold">⚡ Quick Help:</p>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="quickAsk('food')" class="flex flex-col items-center gap-2 p-4 bg-white rounded-xl hover:bg-orange-100 transition-all shadow-lg hover:shadow-xl transform hover:scale-105">
+                                <span class="text-3xl">🍛</span>
+                                <span class="text-xs font-bold text-gray-700" id="quickFood">Food</span>
+                            </button>
+                            <button onclick="quickAsk('hospital')" class="flex flex-col items-center gap-2 p-4 bg-white rounded-xl hover:bg-red-100 transition-all shadow-lg hover:shadow-xl transform hover:scale-105">
+                                <span class="text-3xl">🏥</span>
+                                <span class="text-xs font-bold text-gray-700" id="quickHospital">Hospitals</span>
+                            </button>
+                            <button onclick="quickAsk('stay')" class="flex flex-col items-center gap-2 p-4 bg-white rounded-xl hover:bg-blue-100 transition-all shadow-lg hover:shadow-xl transform hover:scale-105">
+                                <span class="text-3xl">🏨</span>
+                                <span class="text-xs font-bold text-gray-700" id="quickStay">Stay</span>
+                            </button>
+                        
+                        </div>
+                    </div>
+
+                    <!-- Chat Area -->
+                    <div id="chatArea" class="h-96 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-white to-orange-50">
+                        <div class="text-center text-gray-400 mt-20">
+                            <div class="bg-orange-100 w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                <span class="text-5xl">🤖</span>
+                            </div>
+                            <p class="text-lg font-semibold text-gray-600">🙏 Namaste!</p>
+                            <p class="text-sm" id="chatPlaceholder">Ask me about food, hospitals, or accommodation...</p>
+                        </div>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="p-6 border-t-4 border-orange-200 bg-gradient-to-r from-orange-50 to-yellow-50">
+                        <div class="flex gap-3">
+                            <input
+                                type="text"
+                                id="chatInput"
+                                placeholder="Ask me about food, hospitals, or accommodation..."
+                                class="flex-1 px-6 py-4 border-2 border-orange-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-orange-300 shadow-lg"
+                                onkeypress="if(event.key === 'Enter') sendMessage()"
+                            />
+                            <button onclick="sendMessage()" class="bg-gradient-to-r from-orange-600 to-red-600 text-white px-8 py-4 rounded-xl hover:from-orange-700 hover:to-red-700 transition-all flex items-center gap-2 shadow-lg hover:shadow-xl font-bold">
+                                <span>📤</span>
+                                <span id="sendBtn">Send</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Map Tab -->
+        <div id="content-map" class="tab-content hidden">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 border-4 border-orange-100">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                    <span class="text-4xl">🧭</span>
+                    🗺️ <span id="mapTitle">Interactive Map</span>
+                </h2>
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-gradient-to-br from-orange-50 to-yellow-50 p-6 rounded-2xl shadow-lg border-2 border-orange-200">
+                            <h3 class="font-bold text-orange-800 mb-4 text-lg flex items-center gap-2">
+                                🛕 Major Kumbh Sites
+                            </h3>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-center gap-2">
+                                    <span>📍</span> Ramkund - Main bathing ghat
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span>📍</span> Trimbakeshwar - 30 km from city
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span>📍</span> Kalaram Temple - Panchavati
+                                </li>
+                                <li class="flex items-center gap-2">
+                                    <span>📍</span> Sita Gufa - Near Ramkund
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-2xl shadow-lg border-2 border-blue-200">
+                            <h3 class="font-bold text-blue-800 mb-4 text-lg flex items-center gap-2">
+                                🧭 Interactive Maps
+                            </h3>
+                            <div class="space-y-3">
+                                <a href="https://www.google.com/maps/place/Ramkund,+Nashik" target="_blank" class="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 hover:underline">
+                                    <span>🧭</span> → View Ramkund on Google Maps
+                                </a>
+                                <a href="https://www.google.com/maps/place/Trimbakeshwar+Temple" target="_blank" class="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 hover:underline">
+                                    <span>🧭</span> → View Trimbakeshwar Temple
+                                </a>
+                                <a href="https://www.google.com/maps/place/Nashik" target="_blank" class="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-800 hover:underline">
+                                    <span>🧭</span> → View Nashik City Map
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aspect-video bg-gray-100 rounded-2xl overflow-hidden border-4 border-orange-300 shadow-2xl">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30197.89738398568!2d73.76577287431641!3d19.99745380000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddeb09c4c6df27%3A0x263ffb5e89fcd2c5!2sRamkund!5e0!3m2!1sen!2sin!4v1737364800000!5m2!1sen!2sin"
+                            width="100%"
+                            height="100%"
+                            style="border: 0;"
+                            allowfullscreen
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Kumbh Nashik Map"
+                        ></iframe>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <button onclick="window.open('https://www.google.com/maps/dir//Ramkund,+Nashik', '_blank')" class="bg-gradient-to-r from-orange-600 to-red-600 text-white px-4 py-3 rounded-xl hover:shadow-xl transition-all text-sm font-bold">
+                            🛕 Ramkund
+                        </button>
+                        <button onclick="window.open('https://www.google.com/maps/dir//Trimbakeshwar+Temple', '_blank')" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-3 rounded-xl hover:shadow-xl transition-all text-sm font-bold">
+                            🕉️ Trimbak
+                        </button>
+                        <button onclick="window.open('https://www.google.com/maps/search/hospitals+near+Ramkund,+Nashik', '_blank')" class="bg-gradient-to-r from-red-600 to-pink-600 text-white px-4 py-3 rounded-xl hover:shadow-xl transition-all text-sm font-bold">
+                            🏥 Hospitals
+                        </button>
+                        <button onclick="window.open('https://www.google.com/maps/search/restaurants+near+Ramkund,+Nashik', '_blank')" class="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-3 rounded-xl hover:shadow-xl transition-all text-sm font-bold">
+                            🍛 Food
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scanner Tab -->
+        <div id="content-scanner" class="tab-content hidden">
+            <div class="max-w-2xl mx-auto">
+                <div class="bg-white rounded-3xl shadow-2xl p-10 border-4 border-orange-100">
+                    <div class="text-center mb-8">
+                        <div class="bg-gradient-to-br from-orange-100 to-yellow-100 w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg">
+                            <span class="text-5xl">📷</span>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800 mb-3">📷 <span id="scannerTitle">Search Sacred Site</span></h2>
+                        <p class="text-gray-600 text-lg" id="scannerDesc">Get information about any sacred site</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="relative">
+                            <input
+                                type="text"
+                                id="scanInput"
+                                placeholder="Enter site name to get information..."
+                                class="w-full px-6 py-5 border-4 border-orange-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-orange-300 text-lg shadow-lg"
+                                onkeypress="if(event.key === 'Enter') scanSite()"
+                            />
+                            <span class="absolute right-5 top-1/2 transform -translate-y-1/2 text-2xl">🔍</span>
+                        </div>
+                        <button onclick="scanSite()" class="w-full bg-gradient-to-r from-orange-600 via-red-600 to-orange-600 text-white px-8 py-5 rounded-2xl hover:shadow-2xl transition-all font-bold text-lg">
+                            📚 <span id="searchWikiBtn">Search Wikipedia</span>
+                        </button>
+
+                        <div class="bg-gradient-to-r from-orange-50 to-yellow-50 p-6 rounded-2xl border-2 border-orange-200">
+                            <p class="text-sm font-semibold text-orange-800 mb-4">⚡ Quick Access:</p>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="quickScan('Ramkund')" class="px-4 py-3 bg-white hover:bg-orange-100 rounded-xl text-orange-700 font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 border-2 border-orange-200">
+                                    🕉️ Ramkund
+                                </button>
+                                <button onclick="quickScan('Trimbakeshwar')" class="px-4 py-3 bg-white hover:bg-orange-100 rounded-xl text-orange-700 font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 border-2 border-orange-200">
+                                    🕉️ Trimbakeshwar
+                                </button>
+                                <button onclick="quickScan('Kalaram Temple')" class="px-4 py-3 bg-white hover:bg-orange-100 rounded-xl text-orange-700 font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 border-2 border-orange-200">
+                                    🕉️ Kalaram Temple
+                                </button>
+                                <button onclick="quickScan('Panchavati')" class="px-4 py-3 bg-white hover:bg-orange-100 rounded-xl text-orange-700 font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 border-2 border-orange-200">
+                                    🕉️ Panchavati
+                                </button>
+                                <button onclick="quickScan('Sita Gufa')" class="px-4 py-3 bg-white hover:bg-orange-100 rounded-xl text-orange-700 font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 border-2 border-orange-200">
+                                    🕉️ Sita Gufa
+                                </button>
+                                <button onclick="quickScan('Tapovan')" class="px-4 py-3 bg-white hover:bg-orange-100 rounded-xl text-orange-700 font-semibold transition-all shadow-md hover:shadow-lg transform hover:scale-105 border-2 border-orange-200">
+                                    🕉️ Tapovan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal for Site Details -->
+    <div id="siteModal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm hidden items-center justify-center z-50 p-4" onclick="closeSiteModal()">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl" onclick="event.stopPropagation()">
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-orange-800 via-red-800 to-orange-800 text-white mt-16 py-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center space-y-4">
+                <div class="flex items-center justify-center gap-4 text-4xl mb-4">
+                    🕉️ 🙏 ✨
+                </div>
+                <p class="text-2xl font-bold mb-2">🙏 <span id="footerMantra">Har Har Mahadev</span> 🙏</p>
+                <p class="text-lg text-orange-200" id="footerEvent">
+                    ✨ Official Pre-Summit Event of AI Impact Summit 2026 ✨
+                </p>
+                <div class="flex items-center justify-center gap-6 text-sm text-orange-300 pt-4">
+                    <span>🌟 Innovation</span>
+                    <span>•</span>
+                    <span>🤝 Service</span>
+                    <span>•</span>
+                    <span>🙏 Spirituality</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data
+  
+const kumbhData = {
+  hospitals: [
+    {
+      name: "Kumbh Central Medical Camp",
+      area: "Ramkund",
+      distance: "200 meters",
+      services: ["Emergency", "First Aid", "ICU"],
+      phone: "108",
+      timing: "24/7"
+    },
+    {
+      name: "Civil Hospital Nashik",
+      area: "Sharanpur Road",
+      distance: "3 km",
+      services: ["Emergency", "Surgery", "OPD"],
+      phone: "+91-253-2506532",
+      timing: "24/7"
+    }
+  ],
+
+  police: [
+    {
+      name: "Kumbh Police Help Desk",
+      area: "Ramkund",
+      phone: "112",
+      services: ["Lost & Found", "Crowd Control"]
+    }
+  ],
+
+  rooms: [
+    {
+      name: "Ramkund Dharamshala",
+      type: "Free Stay",
+      area: "Panchavati",
+      contact: "On-site Registration"
+    }
+  ],
+
+  emergency: {
+    ambulance: "108",
+    police: "112",
+    fire: "101"
+  },
+
+  transport: [
+    {
+      type: "Shuttle Bus",
+      route: "Nashik Road → Ramkund",
+      fare: "Free"
+    }
+  ]
+  
+};
+
+
+        const translations = {
+            en: {
+                headerTitle: "Kumbha Nashik 2026",
+                headerSubtitle: "Divine Journey, Spiritual Experience",
+                navSites: "Sacred Sites",
+                navAssistant: "AI Assistant",
+                navMap: "Interactive Map",
+                navScanner: "Site Scanner",
+                sitesTitle: "Sacred Sites",
+                assistantTitle: "AI Assistant",
+                mapTitle: "Interactive Map",
+                scannerTitle: "Scan Sacred Site",
+                scannerDesc: "Get information about any sacred site",
+                quickFood: "Food",
+                quickHospital: "Hospitals",
+                quickStay: "Stay",
+                sendBtn: "Send",
+                searchWikiBtn: "Search Wikipedia",
+                chatPlaceholder: "Ask me about food, hospitals, or accommodation...",
+                footerMantra: "Har Har Mahadev",
+                footerEvent: "✨ Official Pre-Summit Event of AI Impact Summit 2026 ✨"
+            },
+            hi: {
+                headerTitle: "कुंभ नासिक 2026",
+                headerSubtitle: "दिव्य यात्रा, आध्यात्मिक अनुभव",
+                navSites: "पवित्र स्थल",
+                navAssistant: "AI सहायक",
+                navMap: "नक्शा",
+                navScanner: "स्थल स्कैनर",
+                sitesTitle: "पवित्र स्थल",
+                assistantTitle: "AI सहायक",
+                mapTitle: "नक्शा",
+                scannerTitle: "पवित्र स्थल स्कैन करें",
+                scannerDesc: "किसी भी पवित्र स्थल की जानकारी प्राप्त करें",
+                quickFood: "भोजन",
+                quickHospital: "अस्पताल",
+                quickStay: "निवास",
+                sendBtn: "भेजें",
+                searchWikiBtn: "विकिपीडिया खोजें",
+                chatPlaceholder: "भोजन, अस्पताल या आवास के बारे में पूछें...",
+                footerMantra: "हर हर महादेव",
+                footerEvent: "✨ AI Impact Summit 2026 की आधिकारिक पूर्व-शिखर सम्मेलन घटना ✨"
+            },
+            mr: {
+                headerTitle: "कुंभ नाशिक 2026",
+                headerSubtitle: "दिव्य प्रवास, आध्यात्मिक अनुभव",
+                navSites: "पवित्र स्थळे",
+                navAssistant: "AI सहाय्यक",
+                navMap: "नकाशा",
+                navScanner: "स्थळ स्कॅनर",
+                sitesTitle: "पवित्र स्थळे",
+                assistantTitle: "AI सहाय्यक",
+                mapTitle: "नकाशा",
+                scannerTitle: "पवित्र स्थळ स्कॅन करा",
+                scannerDesc: "कोणत्याही पवित्र स्थळाची माहिती मिळवा",
+                quickFood: "अन्न",
+                quickHospital: "रुग्णालये",
+                quickStay: "निवास",
+                sendBtn: "पाठवा",
+                searchWikiBtn: "विकिपीडिया शोधा",
+                chatPlaceholder: "अन्न, रुग्णालय किंवा निवासाबद्दल विचारा...",
+                footerMantra: "हर हर महादेव",
+                footerEvent: "✨ AI Impact Summit 2026 चा अधिकृत पूर्व-शिखर कार्यक्रम ✨"
+            }
+        };
+
+        const sites = [
+    {
+        name: { en: "Ramkund", hi: "रामकुंड", mr: "रामकुंड" },
+        desc: { 
+            en: "Most sacred bathing ghat where Lord Rama bathed. Main attraction during Kumbh.",
+            hi: "सबसे पवित्र स्नान घाट जहां भगवान राम ने स्नान किया। कुंभ के दौरान मुख्य आकर्षण।",
+            mr: "सर्वात पवित्र स्नान घाट जिथे भगवान राम स्नान केले."
+        },
+        location: "Panchavati, Nashik",
+        emoji: "🛕",
+        color: "from-orange-500 to-red-500",
+        image: "ramkund.png",
+        timings: "5:00 AM - 10:00 PM",
+        mapUrl: "https://www.google.com/maps/place/Ramkund+Nashik"
+    },
+
+    {
+        name: { en: "Trimbakeshwar Temple", hi: "त्र्यंबकेश्वर मंदिर", mr: "त्र्यंबकेश्वर मंदिर" },
+        desc: { 
+            en: "One of the 12 Jyotirlingas, origin of river Godavari. 30 km from Nashik.",
+            hi: "12 ज्योतिर्लिंगों में से एक, गोदावरी नदी का उद्गम स्थल।",
+            mr: "12 ज्योतिर्लिंगांपैकी एक, गोदावरी नदीचे उगम स्थान."
+        },
+        location: "Trimbak, Nashik District",
+        emoji: "🕉️",
+        color: "from-purple-500 to-pink-500",
+        image: "trimbakeshwar.png",
+        timings: "5:30 AM - 9:00 PM",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Trimbakeshwar+Jyotirlinga+Temple+Nashik+19.93213,73.53075"
+    },
+
+    {
+        name: { en: "Kalaram Temple", hi: "कालाराम मंदिर", mr: "काळाराम मंदिर" },
+        desc: { 
+            en: "Ancient temple dedicated to Lord Rama with black stone idol.",
+            hi: "काले पत्थर की मूर्ति के साथ भगवान राम को समर्पित प्राचीन मंदिर।",
+            mr: "काळ्या दगडाच्या मूर्तीसह भगवान रामाला समर्पित मंदिर."
+        },
+        location: "Panchavati, Nashik",
+        emoji: "🏛️",
+        color: "from-blue-500 to-cyan-500",
+        image: "kalaram.png",
+        timings: "6:00 AM - 9:30 PM",
+        mapUrl: "https://www.google.com/maps/search/?api=1&query=Kalaram+Mandir+Nashik"
+    },
+
+    {
+        name: { en: "Sita Gufa", hi: "सीता गुफा", mr: "सीता गुफा" },
+        desc: { 
+            en: "Cave where Goddess Sita lived during exile period.",
+            hi: "गुफा जहां देवी सीता ने वनवास काल में निवास किया।",
+            mr: "वनवास काळात देवी सीता राहिलेली गुफा."
+        },
+        location: "Panchavati, Nashik",
+        emoji: "⛰️",
+        color: "from-green-500 to-emerald-500",
+        image: "sitagufa.png",
+        timings: "6:00 AM - 7:00 PM",
+        mapUrl: "https://www.google.com/maps/search/Sita+Gufa+Nashik"
+    },
+
+    {
+        name: { en: "Tapovan", hi: "तपोवन", mr: "तपोवन" },
+        desc: { 
+            en: "Sacred place near Godavari associated with Ramayana.",
+            hi: "गोदावरी के पास रामायण से जुड़ा पवित्र स्थान।",
+            mr: "गोदावरी किनाऱ्यावरील रामायणाशी संबंधित पवित्र स्थान."
+        },
+        location: "Near Nashik",
+        emoji: "🌿",
+        color: "from-yellow-500 to-orange-500",
+        image: "tapovan.png",
+        timings: "Open 24 hours",
+        mapUrl: "https://www.google.com/maps/search/Tapovan+Nashik"
+    },
+
+    {
+        name: { en: "Panchavati", hi: "पंचवटी", mr: "पंचवटी" },
+        desc: { 
+            en: "Sacred area with five banyan trees where Lord Rama stayed.",
+            hi: "पांच वटवृक्षों वाला पवित्र क्षेत्र।",
+            mr: "पाच वड वृक्ष असलेले पवित्र क्षेत्र."
+        },
+        location: "Central Nashik",
+        emoji: "🌳",
+        color: "from-teal-500 to-blue-500",
+        image: "panchavati.png",
+        timings: "Open 24 hours",
+        mapUrl: "https://www.google.com/maps/place/Panchavati+Nashik"
+    }
+];
+
+        const facilities = {
+            food: [
+                { name: "Annapurna Bhojan Kendra", location: "Ramkund Area", distance: "0.5 km", type: "Free Meals", emoji: "🍛" },
+                { name: "Sadhana Restaurant", location: "MG Road", distance: "2 km", type: "Pure Veg", emoji: "🥘" },
+                { name: "Community Kitchen 1", location: "Panchavati", distance: "1 km", type: "Free Meals", emoji: "🍲" }
+            ],
+            hospitals: [
+                { name: "Civil Hospital Nashik", location: "Sharanpur Road", distance: "3 km", phone: "+91-253-2506532", emoji: "🏥" },
+                { name: "Ashoka Medicover", location: "Tilak Wadi", distance: "4 km", phone: "+91-253-6604444", emoji: "⚕️" },
+                { name: "Kumbh Medical Camp", location: "Ramkund", distance: "0.2 km", phone: "Emergency: 108", emoji: "🚑" }
+            ],
+            accommodation: [
+                { name: "Dharamshala - Ramkund", location: "Panchavati", rate: "Free", capacity: "500", emoji: "🏨" },
+                { name: "Tent City Kumbh", location: "Godavari Banks", rate: "₹500/day", capacity: "1000", emoji: "⛺" },
+                { name: "Hotel Panchavati", location: "MG Road", rate: "₹2000/day", capacity: "100", emoji: "🏢" }
+            ]
+        };
+
+        let currentLang = 'en';
+        let chatMessages = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSites();
+            document.getElementById('languageSelect').addEventListener('change', function() {
+                currentLang = this.value;
+                updateLanguage();
+            });
+        });
+
+        function updateLanguage() {
+            const t = translations[currentLang];
+            document.getElementById('headerTitle').textContent = t.headerTitle;
+            document.getElementById('headerSubtitle').textContent = t.headerSubtitle;
+            document.getElementById('navSites').textContent = t.navSites;
+            document.getElementById('navAssistant').textContent = t.navAssistant;
+            document.getElementById('navMap').textContent = t.navMap;
+            document.getElementById('navScanner').textContent = t.navScanner;
+            document.getElementById('sitesTitle').textContent = t.sitesTitle;
+            document.getElementById('assistantTitle').textContent = t.assistantTitle;
+            document.getElementById('mapTitle').textContent = t.mapTitle;
+            document.getElementById('scannerTitle').textContent = t.scannerTitle;
+            document.getElementById('scannerDesc').textContent = t.scannerDesc;
+            document.getElementById('quickFood').textContent = t.quickFood;
+            document.getElementById('quickHospital').textContent = t.quickHospital;
+            document.getElementById('quickStay').textContent = t.quickStay;
+            document.getElementById('sendBtn').textContent = t.sendBtn;
+            document.getElementById('searchWikiBtn').textContent = t.searchWikiBtn;
+            document.getElementById('chatPlaceholder').textContent = t.chatPlaceholder;
+            document.getElementById('chatInput').placeholder = t.chatPlaceholder;
+            document.getElementById('footerMantra').textContent = t.footerMantra;
+            document.getElementById('footerEvent').textContent = t.footerEvent;
+            loadSites();
+        }
+
+        function switchTab(tab) {
+            const tabs = ['sites', 'assistant', 'map', 'scanner'];
+            tabs.forEach(t => {
+                document.getElementById('content-' + t).classList.add('hidden');
+                document.getElementById('tab-' + t).className = 'flex items-center gap-2 px-6 py-3 rounded-xl transition-all whitespace-nowrap font-semibold bg-gray-100 text-gray-700 hover:bg-gray-200';
+            });
+            document.getElementById('content-' + tab).classList.remove('hidden');
+            document.getElementById('tab-' + tab).className = 'flex items-center gap-2 px-6 py-3 rounded-xl transition-all whitespace-nowrap font-semibold bg-gradient-to-r from-orange-600 to-red-600 text-white shadow-xl scale-105';
+        }
+
+        function loadSites() {
+            const grid = document.getElementById('sitesGrid');
+            grid.innerHTML = '';
+            sites.forEach((site, idx) => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all cursor-pointer transform hover:scale-105 border-4 border-orange-100';
+                card.onclick = () => openSiteModal(site);
+                card.innerHTML = `
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${site.image}" alt="${site.name[currentLang]}" class="w-full h-full object-cover">
+                        <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r ${site.color}"></div>
+                        <div class="absolute top-3 right-3 bg-white bg-opacity-90 backdrop-blur-sm px-3 py-1 rounded-full">
+                            <span class="text-2xl">${site.emoji}</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">${site.name[currentLang]}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">${site.desc[currentLang]}</p>
+                        <div class="space-y-2 mb-4">
+                            <p class="text-orange-600 text-sm font-semibold flex items-center gap-2">
+                                <span>📍</span> ${site.location}
+                            </p>
+                            <p class="text-gray-500 text-sm flex items-center gap-2">
+                                <span>🕐</span> ${site.timings}
+                            </p>
+                        </div>
+                        <button onclick="event.stopPropagation(); window.open('${site.mapUrl}', '_blank')" class="w-full bg-gradient-to-r ${site.color} text-white px-4 py-3 rounded-lg hover:shadow-lg transition-all font-semibold">
+                            🧭 Get Directions
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openSiteModal(site) {
+            const modal = document.getElementById('siteModal');
+            const content = document.getElementById('modalContent');
+            content.innerHTML = `
+                <div class="relative h-64 overflow-hidden">
+                    <img src="${site.image}" alt="${site.name[currentLang]}" class="w-full h-full object-cover">
+                    <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r ${site.color}"></div>
+                    <button onclick="closeSiteModal()" class="absolute top-4 right-4 bg-white bg-opacity-90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-all">
+                        <span class="text-2xl">✖️</span>
+                    </button>
+                    <div class="absolute bottom-4 left-4 bg-white bg-opacity-90 backdrop-blur-sm px-4 py-2 rounded-full">
+                        <span class="text-4xl">${site.emoji}</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">${site.name[currentLang]}</h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">${site.desc[currentLang]}</p>
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-orange-50 p-4 rounded-xl">
+                            <p class="text-orange-800 font-semibold mb-2 flex items-center gap-2">
+                                <span>📍</span> Location
+                            </p>
+                            <p class="text-gray-700">${site.location}</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-xl">
+                            <p class="text-blue-800 font-semibold mb-2 flex items-center gap-2">
+                                <span>🕐</span> Timings
+                            </p>
+                            <p class="text-gray-700">${site.timings}</p>
+                        </div>
+                    </div>
+                    <button onclick="window.open('${site.mapUrl}', '_blank')" class="w-full bg-gradient-to-r ${site.color} text-white px-6 py-4 rounded-xl hover:shadow-xl transition-all font-bold text-lg">
+                        🧭 Get Directions
+                    </button>
+                </div>
+            `;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSiteModal() {
+            const modal = document.getElementById('siteModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function quickAsk(type) {
+            const queries = {
+                en: { food: 'food information', hospital: 'hospital information', stay: 'accommodation information' },
+                hi: { food: 'भोजन की जानकारी', hospital: 'अस्पताल की जानकारी', stay: 'आवास की जानकारी' },
+                mr: { food: 'अन्न माहिती', hospital: 'रुग्णालय माहिती', stay: 'निवास माहिती' }
+            };
+            document.getElementById('chatInput').value = queries[currentLang][type];
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            chatMessages.push({ type: 'user', text: message });
+            input.value = '';
+            updateChat();
+
+            setTimeout(() => {
+
+                let response = '';
+                const query = message.toLowerCase();
+
+                if (query.includes('food') || query.includes('भोजन') || query.includes('अन्न') || query.includes('eat') || query.includes('restaurant')) {
+                    response = (currentLang === 'hi' ? 'यहां निकटतम भोजन सुविधाएं हैं:\n\n' : currentLang === 'mr' ? 'येथे जवळचे अन्न सुविधा आहेत:\n\n' : 'Here are the nearest food facilities:\n\n');
+                    facilities.food.forEach(f => {
+                        response += `${f.emoji} ${f.name} - ${f.distance} (${f.type})\n`;
+                    });
+                } else if (query.includes('hospital') || query.includes('अस्पताल') || query.includes('रुग्णालय') || query.includes('medical') || query.includes('doctor')) {
+                    response = (currentLang === 'hi' ? 'यहां निकटतम चिकित्सा सुविधाएं हैं:\n\n' : currentLang === 'mr' ? 'येथे जवळचे वैद्यकीय सुविधा आहेत:\n\n' : 'Here are the nearest medical facilities:\n\n');
+                    facilities.hospitals.forEach(h => {
+                        response += `${h.emoji} ${h.name} - ${h.distance}\n📞 ${h.phone}\n\n`;
+                    });
+                } else if (query.includes('stay') || query.includes('hotel') || query.includes('accommodation') || query.includes('निवास') || query.includes('होटल')) {
+                    response = (currentLang === 'hi' ? 'यहां उपलब्ध आवास विकल्प हैं:\n\n' : currentLang === 'mr' ? 'येथे उपलब्ध निवास पर्याय आहेत:\n\n' : 'Here are available accommodation options:\n\n');
+                    facilities.accommodation.forEach(a => {
+                        response += `${a.emoji} ${a.name}\n💰 ${a.rate}\n👥 Capacity: ${a.capacity}\n\n`;
+                    });
+                } else {
+                    response = currentLang === 'hi' 
+                        ? '🙏 मैं भोजन, अस्पताल और आवास के बारे में जानकारी प्रदान कर सकता हूं। कृपया इनमें से किसी एक के बारे में पूछें!'
+                        : currentLang === 'mr'
+                        ? '🙏 मी अन्न, रुग्णालय आणि निवासाबद्दल माहिती देऊ शकतो. कृपया यापैकी एकाबद्दल विचारा!'
+                        : '🙏 I can help with information about food, hospitals, and accommodation. Please ask about any of these!';
+                }
+
+                chatMessages.push({ type: 'bot', text: response });
+                updateChat();
+            }, 1000);
+        }
+
+        function updateChat() {
+            const chatArea = document.getElementById('chatArea');
+            chatArea.innerHTML = '';
+            
+            if (chatMessages.length === 0) {
+                chatArea.innerHTML = `
+                    <div class="text-center text-gray-400 mt-20">
+                        <div class="bg-orange-100 w-24 h-24 rounded-full mx-auto mb-4 flex items-center justify-center">
+                            <span class="text-5xl">🤖</span>
+                        </div>
+                        <p class="text-lg font-semibold text-gray-600">🙏 Namaste!</p>
+                        <p class="text-sm">${translations[currentLang].chatPlaceholder}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            chatMessages.forEach(msg => {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`;
+                msgDiv.innerHTML = `
+                    <div class="max-w-xs lg:max-w-md px-5 py-4 rounded-2xl shadow-lg ${
+                        msg.type === 'user' 
+                            ? 'bg-gradient-to-r from-orange-600 to-red-600 text-white' 
+                            : 'bg-white text-gray-800 border-2 border-orange-200'
+                    }">
+                        <p class="whitespace-pre-line text-sm leading-relaxed">${msg.text}</p>
+                    </div>
+                `;
+                chatArea.appendChild(msgDiv);
+            });
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        function scanSite() {
+            const query = document.getElementById('scanInput').value.trim();
+            if (!query) return;
+            const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(query.replace(/ /g, '_'))}`;
+            window.open(wikiUrl, '_blank');
+        }
+
+        function quickScan(site) {
+            const wikiUrl = `https://en.wikipedia.org/wiki/${encodeURIComponent(site.replace(/ /g, '_'))}`;
+            window.open(wikiUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
